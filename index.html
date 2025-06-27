@@ -107,6 +107,8 @@
         .platform-card.whatsapp { --platform-color: #25D366; } .platform-card.telegram { --platform-color: #2AABEE; }
         .platform-card.instagram { --platform-color: #E4405F; } .platform-card.twitter { --platform-color: #1DA1F2; }
         .platform-card.tiktok { --platform-color: #fff; }
+        
+        /* DESKTOP Event Card Styles */
         .events-section { margin-top: 8rem; }
         .events-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -116,28 +118,29 @@
             display: block; text-decoration: none; color: inherit; border-radius: 16px;
             transition: var(--transition-smooth);
         }
-        .event-link-wrapper:hover {
-             box-shadow: 0 0 50px rgba(248, 0, 105, 0.3);
-        }
+        .event-link-wrapper:hover { box-shadow: 0 0 50px rgba(248, 0, 105, 0.3); }
         .event-item {
             height: 100%; border-radius: 16px; overflow: hidden; position: relative;
             transform-style: preserve-3d; transform: perspective(1000px);
             transition: var(--transition-smooth); box-shadow: var(--shadow);
         }
+        .event-image-container { position: relative; width: 100%; height: 100%;}
         .event-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
         .event-link-wrapper:hover .event-item { transform: translateY(-5px); }
         .event-link-wrapper:hover .event-image { transform: scale(1.1); }
-        .event-content {
+        .event-content-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(to top, rgba(12, 22, 38, 0.95) 20%, transparent 100%);
             padding: 1.5rem; display: flex; align-items: flex-end;
             opacity: 0; transform: translateY(20px); transition: var(--transition-smooth);
         }
-        .event-link-wrapper:hover .event-content { opacity: 1; transform: translateY(0); }
+        .event-link-wrapper:hover .event-content-overlay { opacity: 1; transform: translateY(0); }
         .event-title {
             font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 600;
             color: var(--white); transform: translateZ(50px);
         }
+        
+        /* FOOTER */
         .footer { text-align: center; padding: 4rem 1.5rem; background-color: #080f1a; margin-top: 8rem; }
         .footer-logo { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
         .footer-logo span { color: var(--brand-primary); }
@@ -148,17 +151,42 @@
         .footer-copyright { font-size: 0.9rem; color: #55667d; }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- OPTIMIZED RESPONSIVE DESIGN FOR MOBILE --- */
         @media (max-width: 768px) {
-            .hero-section { background-position: center 40%; }
+            .hero-section { height: 90vh; }
             .content-wrapper { padding: 4rem 1rem; }
-            .event-link-wrapper:hover { box-shadow: none; transform: none; }
-            .event-link-wrapper:active .event-item { transform: scale(0.98); }
+            .platform-grid, .events-grid { gap: 2rem; }
+            
+            /* Disable 3D tilt and hover glow for touch devices */
+            .event-link-wrapper:hover { box-shadow: none; }
             .event-item, .event-link-wrapper:hover .event-item { transform: none !important; }
-            .event-content {
-                opacity: 1; transform: translateY(0);
-                background: linear-gradient(to top, rgba(12, 22, 38, 0.95) 30%, transparent 100%);
+
+            /* Simple and effective tap feedback */
+            .event-link-wrapper:active .event-item { transform: scale(0.98) !important; transition: transform 0.2s ease; }
+
+            /* NEW Mobile-First Event Card Layout */
+            .event-item {
+                display: flex;
+                flex-direction: column;
+                background-color: rgba(255, 255, 255, 0.05);
             }
-            .event-title { transform: none; }
+            .event-image-container {
+                height: 200px; /* Fixed height for image area on mobile */
+                flex-shrink: 0;
+            }
+             .event-content-overlay { display: none; } /* Hide the desktop overlay */
+            
+            /* NEW Text content area for mobile */
+            .event-text-content {
+                padding: 1.25rem;
+                text-align: center;
+                background-color: rgba(255, 255, 255, 0.02);
+            }
+            .event-text-content .event-title {
+                transform: none;
+                font-size: 1.1rem;
+                line-height: 1.4;
+            }
         }
     </style>
 </head>
@@ -195,13 +223,56 @@
                 <p class="section-intro">Explore our signature events that have propelled thousands into their pharmaceutical careers.</p>
             </div>
             <div class="events-grid">
-                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper"><div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2"><img src="https://i.ibb.co/v6SB30M1/1.jpg" alt="PharmaSchemes Winter Wave" class="event-image"><div class="event-content"><h3 class="event-title">PharmaSchemes Winter Wave</h3></div></div></a>
-                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper"><div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2"><img src="https://i.ibb.co/v67LQhv5/2.jpg" alt="PharmaSchemes Hiring Shortcut" class="event-image"><div class="event-content"><h3 class="event-title">PharmaSchemes Hiring Shortcut</h3></div></div></a>
-                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper"><div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2"><img src="https://i.ibb.co/QFD6NpzW/3.jpg" alt="The First Online Job Fair in Egypt" class="event-image"><div class="event-content"><h3 class="event-title">The First Online Job Fair</h3></div></div></a>
-                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper"><div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2"><img src="https://i.ibb.co/HL6BNpy0/4.jpg" alt="PharmaSchemes STAD" class="event-image"><div class="event-content"><h3 class="event-title">PharmaSchemes STAD</h3></div></div></a>
-                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper"><div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2"><img src="https://i.ibb.co/qMvphFXn/5.jpg" alt="PharmaSchemes SPOT" class="event-image"><div class="event-content"><h3 class="event-title">PharmaSchemes SPOT</h3></div></div></a>
-                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper"><div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2"><img src="https://i.ibb.co/1tyq7K6p/6.jpg" alt="PharmaSchemes NEXT" class="event-image"><div class="event-content"><h3 class="event-title">PharmaSchemes NEXT</h3></div></div></a>
-                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper"><div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2"><img src="https://i.ibb.co/W4DYbVj8/7.jpg" alt="PharmaSchemes FAST" class="event-image"><div class="event-content"><h3 class="event-title">PharmaSchemes FAST</h3></div></div></a>
+                <!-- Event Cards now have a new structure for mobile optimization -->
+                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper">
+                    <div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                        <div class="event-image-container"><img src="https://i.ibb.co/v6SB30M1/1.jpg" alt="PharmaSchemes Winter Wave" class="event-image"></div>
+                        <div class="event-content-overlay"><h3 class="event-title">PharmaSchemes Winter Wave</h3></div>
+                        <div class="event-text-content"><h3 class="event-title">PharmaSchemes Winter Wave</h3></div>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper">
+                    <div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                        <div class="event-image-container"><img src="https://i.ibb.co/v67LQhv5/2.jpg" alt="PharmaSchemes Hiring Shortcut" class="event-image"></div>
+                        <div class="event-content-overlay"><h3 class="event-title">PharmaSchemes Hiring Shortcut</h3></div>
+                        <div class="event-text-content"><h3 class="event-title">PharmaSchemes Hiring Shortcut</h3></div>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper">
+                    <div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                        <div class="event-image-container"><img src="https://i.ibb.co/QFD6NpzW/3.jpg" alt="The First Online Job Fair in Egypt" class="event-image"></div>
+                        <div class="event-content-overlay"><h3 class="event-title">The First Online Job Fair</h3></div>
+                        <div class="event-text-content"><h3 class="event-title">The First Online Job Fair</h3></div>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper">
+                    <div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                        <div class="event-image-container"><img src="https://i.ibb.co/HL6BNpy0/4.jpg" alt="PharmaSchemes STAD" class="event-image"></div>
+                        <div class="event-content-overlay"><h3 class="event-title">PharmaSchemes STAD</h3></div>
+                        <div class="event-text-content"><h3 class="event-title">PharmaSchemes STAD</h3></div>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper">
+                    <div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                        <div class="event-image-container"><img src="https://i.ibb.co/qMvphFXn/5.jpg" alt="PharmaSchemes SPOT" class="event-image"></div>
+                        <div class="event-content-overlay"><h3 class="event-title">PharmaSchemes SPOT</h3></div>
+                        <div class="event-text-content"><h3 class="event-title">PharmaSchemes SPOT</h3></div>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper">
+                    <div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                        <div class="event-image-container"><img src="https://i.ibb.co/1tyq7K6p/6.jpg" alt="PharmaSchemes NEXT" class="event-image"></div>
+                        <div class="event-content-overlay"><h3 class="event-title">PharmaSchemes NEXT</h3></div>
+                        <div class="event-text-content"><h3 class="event-title">PharmaSchemes NEXT</h3></div>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=100089921475011" target="_blank" rel="noopener noreferrer" class="event-link-wrapper">
+                    <div class="event-item" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                        <div class="event-image-container"><img src="https://i.ibb.co/W4DYbVj8/7.jpg" alt="PharmaSchemes FAST" class="event-image"></div>
+                        <div class="event-content-overlay"><h3 class="event-title">PharmaSchemes FAST</h3></div>
+                        <div class="event-text-content"><h3 class="event-title">PharmaSchemes FAST</h3></div>
+                    </div>
+                </a>
             </div>
         </section>
     </div>
